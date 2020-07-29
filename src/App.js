@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import { useDispatch } from 'react-redux'
+import { fetchPosts } from './redux/actions'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Home from './components/Home';
+import Login from './components/Login';
+import Nav from './components/layout/NavComponent';
+import HeaderComponent from './components/layout/HeaderComponent';
+import Post from './components/Post';
+import Footer from './components/layout/Footer';
 
 function App() {
+  const dispatch = useDispatch()
+  //const posts = useSelector(state=>state.posts)
+  useEffect(() => { dispatch(fetchPosts()) }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container" >
+      <BrowserRouter>
+        <HeaderComponent />
+        <Nav />
+        <div style={{ margin: '10px' }} >
+          <Switch>
+            <Route exact path="/"><Home /></Route>
+            <Route exact path="/Login"><Login /></Route>
+            <Route exact path="/posts/:id"><Post /></Route>
+          </Switch>
+          <Footer />
+        </div>
+
+      </BrowserRouter>
+
     </div>
   );
 }

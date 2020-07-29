@@ -1,12 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import makeServer from "./mirage/server";
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import {allReducers} from './redux/reducers'
+import thunk from 'redux-thunk';
+//const composeEnhancers =window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ;
+let store = createStore(
+ allReducers,composeEnhancers(applyMiddleware(thunk))
+  
+)
+
+
+//set up Miragejs as per its docs
+if (
+  process.env.NODE_ENV === "development" &&
+  typeof makeServer === "function"
+) {
+  makeServer(); 
+}
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
