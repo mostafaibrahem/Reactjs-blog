@@ -1,3 +1,12 @@
+ -------------------------------------------------------------------------------------
+| 1-clone this repo " git clone https://github.com/mostafaibrahem/Reactjs-blog.git "  |
+| 2-open terminal and go to project location and run "npm install" then "npm start"   |
+| 3-new tap is opened http://localhost:3000                                           | 
+--------------------------------------------------------------------------------------
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
